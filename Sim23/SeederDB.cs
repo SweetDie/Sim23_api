@@ -1,5 +1,5 @@
-﻿using DAL.Entities;
-using DAL.Repositories.Interfaces;
+﻿using BLL.Services.Interfaces;
+using BLL.ViewModels.Category;
 
 namespace Sim23
 {
@@ -10,27 +10,33 @@ namespace Sim23
             using (var scope = app.ApplicationServices
                 .GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var categoryRepository = scope.ServiceProvider.GetService<ICategoryRepository>();
+                var categoryService = scope.ServiceProvider.GetService<ICategoryService>();
 
-                if (!categoryRepository.Categories.Any())
+                if (!(await categoryService.GetAllAsync()).Any())
                 {
-                    var category = new Category
+                    var category = new CategoryCreateVM
                     {
-                        Name = "Гарячі напої"
+                        Name = "Гарячі напої",
+                        Priority = 2,
+                        Description = "Гарячі напої якщо потрібно зігрітися"
                     };
-                    await categoryRepository.CreateAsync(category);
+                    await categoryService.CreateCategoryAsync(category);
 
-                    category = new Category
+                    category = new CategoryCreateVM
                     {
-                        Name = "Гаряча їжа"
+                        Name = "Гаряча їжа",
+                        Priority = 1,
+                        Description = "Дуже смачна гаряча домашня їжа"
                     };
-                    await categoryRepository.CreateAsync(category);
+                    await categoryService.CreateCategoryAsync(category);
 
-                    category = new Category
+                    category = new CategoryCreateVM
                     {
-                        Name = "Пекарня"
+                        Name = "Пекарня",
+                        Priority = 3,
+                        Description = "Смачна випічка. Краще ніж у дома"
                     };
-                    await categoryRepository.CreateAsync(category);
+                    await categoryService.CreateCategoryAsync(category);
                 }
             }
         }

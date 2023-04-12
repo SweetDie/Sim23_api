@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories.Classes
 {
-    public class CategoryRepository : GenericRepository<Category, int>,
+    public class CategoryRepository : GenericRepository<CategoryEntity, int>,
         ICategoryRepository
     {
         private readonly AppEFContext _context;
@@ -14,6 +14,6 @@ namespace DAL.Repositories.Classes
             _context = context;
         }
 
-        public IQueryable<Category> Categories => GetAll();
+        public IQueryable<CategoryEntity> Categories => GetAll();
     }
 }

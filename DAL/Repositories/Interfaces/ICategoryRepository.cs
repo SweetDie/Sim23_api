@@ -2,8 +2,8 @@
 
 namespace DAL.Repositories.Interfaces
 {
-    public interface ICategoryRepository : IGenericRepository<Category, int>
+    public interface ICategoryRepository : IGenericRepository<CategoryEntity, int>
     {
-        IQueryable<Category> Categories { get; }
+        IQueryable<CategoryEntity> Categories { get; }
     }
 }

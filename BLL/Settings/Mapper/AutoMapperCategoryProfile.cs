@@ -8,12 +8,19 @@ namespace BLL.Settings.Mapper
     {
         public AutoMapperCategoryProfile()
         {
-            // Category -> CategoryVM
-            CreateMap<Category, CategoryVM>()
-                .ForMember(dest => dest.Id,
-                    opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Name,
-                    opt => opt.MapFrom(src => src.Name));
+            // CategoryEntity -> CategoryVM
+            CreateMap<CategoryEntity, CategoryVM>()
+                .ForMember(dest => dest.Image,
+                    opt => opt.MapFrom(dest => $"/images/{dest.Image}"));
+
+            // CategoryCreateVM -> CategoryEntity
+            CreateMap<CategoryCreateVM, CategoryEntity>()
+                .ForMember(dest => dest.Image,
+                    opt => opt.Ignore())
+                .ForMember(dest => dest.DateCreated,
+                    opt => opt.MapFrom(dest => DateTime.Now.ToUniversalTime()))
+                .ForMember(dest => dest.DateModified,
+                    opt => opt.MapFrom(dest => DateTime.Now.ToUniversalTime()));
         }
     }
 }

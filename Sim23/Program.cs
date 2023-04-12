@@ -10,20 +10,19 @@ using Sim23;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AppEFContext>(opt =>
-opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 // Add services to the container.
+builder.Services.AddDbContext<AppEFContext>(opt =>
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("LocalDbConnection")));
 
 builder.Services.AddControllers();
 
-// Add repositories
+// Repositories
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
-// Add services
+// Services
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
-// Add automapper
+// Automapper
 builder.Services.AddAutoMapper(typeof(AutoMapperCategoryProfile));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

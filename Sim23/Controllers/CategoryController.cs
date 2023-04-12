@@ -1,11 +1,12 @@
 ﻿using BLL.Services.Interfaces;
+using BLL.ViewModels.Category;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Sim23.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : Controller
+    public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
 
@@ -18,6 +19,13 @@ namespace Sim23.Controllers
         public async Task<IActionResult> GetAllAsync()
         {
             var result = await _categoryService.GetAllAsync();
+            return Ok(result);
+        }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateAsync([FromBody] CategoryCreateVM model)
+        {
+            var result = await _categoryService.CreateCategoryAsync(model);
             return Ok(result);
         }
     }

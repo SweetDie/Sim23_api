@@ -9,7 +9,7 @@ namespace DAL
         {   
         }
 
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryEntity> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

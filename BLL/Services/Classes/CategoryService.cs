@@ -30,6 +30,11 @@ namespace BLL.Services.Classes
             return category;
         }
 
+        public async Task<bool> DeleteCategoryAsync(int id)
+        {
+            return await _categoryRepository.DeleteAsync(id);
+        }
+
         public async Task<List<CategoryVM>> GetAllAsync()
         {
             var categories = await _categoryRepository.Categories
@@ -38,6 +43,17 @@ namespace BLL.Services.Classes
                 .ToListAsync();
             var categoriesVM = _mapper.Map<List<CategoryVM>>(categories);
             return categoriesVM;
+        }
+
+        public async Task<CategoryEntity> UpdateCategoryAsync(CategoryUpdateVM model)
+        {
+            CategoryEntity category = _mapper.Map<CategoryEntity>(model);
+            var res = await _categoryRepository.UpdateAsync(category);
+            if(res == true)
+            {
+                return category;
+            }
+            return null;
         }
     }
 }

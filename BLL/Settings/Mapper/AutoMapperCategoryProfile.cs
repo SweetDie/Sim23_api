@@ -21,6 +21,11 @@ namespace BLL.Settings.Mapper
                     opt => opt.MapFrom(dest => DateTime.Now.ToUniversalTime()))
                 .ForMember(dest => dest.DateModified,
                     opt => opt.MapFrom(dest => DateTime.Now.ToUniversalTime()));
+
+            // CategoryUpdateVM -> CategoryEntity
+            CreateMap<CategoryUpdateVM, CategoryEntity>()
+                .ForMember(dest => dest.Image,
+                opt => opt.MapFrom(src => src.ImageBase64));
         }
     }
 }
